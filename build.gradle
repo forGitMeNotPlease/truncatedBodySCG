@@ -1,0 +1,49 @@
+
+buildscript {
+
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.0.0.M7"
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.3.RELEASE"
+    }
+
+    repositories {
+        maven {
+            url 'https://repo.spring.io/libs-milestone'
+        }
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+apply plugin: "io.spring.dependency-management"
+
+dependencyManagement {
+
+    imports {
+        mavenBom 'org.springframework.cloud:spring-cloud-gateway:2.0.0.M7'
+    }
+}
+
+dependencies {
+    compile 'org.springframework.cloud:spring-cloud-starter-gateway'
+
+    compile "org.isomorphism:token-bucket:1.7"
+
+    testCompile "org.springframework.boot:spring-boot-starter-test:2.0.0.M7"
+    testCompile "io.projectreactor:reactor-test"
+    testCompile "org.assertj:assertj-core"
+}
+
+
+repositories {
+    mavenCentral()
+    maven {url 'https://repo.spring.io/libs-milestone'}
+}
+
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
